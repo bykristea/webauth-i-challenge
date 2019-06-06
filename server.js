@@ -4,6 +4,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 
 
+const restricted = require('./authentication/restricted-middleware.js');
+
 const db = require('./database/dbConfig.js');
 const User = require('./users/users-model.js');
 
@@ -45,6 +47,9 @@ server.post('/api/register', (req, res) => {
     });
 });
 
+//POST to login
+// /api/login
+//requires valid username and password
 server.post('/api/login', (req, res) => {
     let { username, password } = req.body;
   
@@ -63,6 +68,12 @@ server.post('/api/login', (req, res) => {
       });
   });
   
-
-
+//if logged in get list of usersf
+  server.get('/api/users', restricted, (req, res) => {
+    User.find()
+      .then(users => {
+        res.json(users);
+      })
+      .catch(err => res.send(err));
+  });
 module.exports = server;
