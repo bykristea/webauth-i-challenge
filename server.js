@@ -14,6 +14,10 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-
+//server check to see if up and running. 
+// localhost://4000/ should return message
+server.get('/', (req, res) => {
+    res.send("Fly you Fools!")
+});
 
 module.exports = server;
