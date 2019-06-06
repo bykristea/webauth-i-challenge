@@ -10,16 +10,17 @@ module.exports = {
 
   
   pool: {
-      min: 2,
-      max: 10
+    afterCreate: (conn, done) => {
+      conn.run('PRAGMA foreign_keys = ON', done);
     },
-    
+  },
+
     migrations: {
-      tableName: 'knex_migrations'
+      directory: './migrations/',
     },
-    seeds: {
-      directory: './database/seeds',
-    },
+    // seeds: {
+    //   directory: './database/seeds',
+    // },
   },
 };
 
