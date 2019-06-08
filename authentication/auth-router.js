@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const restricted = require('./restricted-middleware.js');
 
-const Users = require('../users/users-model.js');
+const User = require('../users/users-model.js');
 
 //endpoints at /api/auth/(name of endpoint)
 
@@ -33,7 +33,7 @@ router.post('/register', (req, res) => {
 });
 
 //POST to login
-// /api/login
+// /api/auth/login
 //requires valid username and password
 router.post('/login', (req, res) => {
     let { username, password } = req.body;
