@@ -6,11 +6,6 @@ const session = require('express-session');
 
 const SessionStore = require('connect-session-knex')(session);
 
-const restricted = require('./authentication/restricted-middleware.js');
-
-const db = require('./database/dbConfig.js');
-const User = require('./users/users-model.js');
-
 const authRouter = require('./authentication/auth-router.js');
 const usersRouter = require('./users/user-router.js');
 
@@ -40,8 +35,12 @@ server.use(express.json());
 server.use(cors());
 server.use(session(sessionConfig));
 
+//pulls in auth router file. all endpoints will go to /api/auth/(endpointName)
 server.use('/api/auth', authRouter);
+
+// pulls in users router file. all endpoints will go to /api/users/(endpointName)
 server.use('/api/users', usersRouter);
+
 //server check to see if up and running. 
 // localhost://4000/ should return message
 server.get('/', (req, res) => {

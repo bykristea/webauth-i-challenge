@@ -4,7 +4,9 @@ const restricted = require('../authentication/restricted-middleware.js');
 const User = require('../users/users-model.js');
 
 //if logged in get list of users
-// at /api/user
+//if not logged in will return you are not authorized
+// at /api/users
+
 router.get('/', restricted, (req, res) => {
     User.find()
       .then(users => {
