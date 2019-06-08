@@ -12,12 +12,16 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "connect": "^3.7.0",
+    "connect-session-knex": "^1.4.0",
     "cors": "^2.8.5",
     "env": "^0.0.2",
     "express": "^4.17.1",
+    "express-session": "^1.16.1",
     "helmet": "^3.18.0",
     "knex": "^0.17.3",
     "node": "^12.4.0",
+    "session": "^0.1.0",
     "sqlite3": "^4.0.8"
   },
   "devDependencies": {

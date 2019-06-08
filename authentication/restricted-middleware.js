@@ -1,26 +1,12 @@
 const bcrypt = require('bcrypt');
 
-const User = require('../users/users-model.js');
+const Users = require('../users/users-model.js');
 
-module.exports =  function restricted(req, res, next) {
-    const { username, password} = req.headers;
-
-    if(username && password) {
-        User.findBy({ username })
-        .first()
-        .then(user => {
-          if (user && bcrypt.compareSync(password, user.password)) 
-           {
-            next();
-          } else {
-            res.status(401).json({ message: 'Invalid Credentials' });
-          }
-        })
-        .catch(error => {
-          res.status(500).json({message: 'You Shall Not Pass'});
-        });
-    } else {
-        res.status(400).json({message: 'Please provide valid Credentials'});
-    }
-   
+//checks the session to see if user is logged in. If logged in will run the next function. If not will return you are not authorized. 
+module.exports = (req, res, next) => {
+  if (req.session && req.session.user) {
+    next();
+  } else {
+    res.status(401).json({ message: 'You are not authorized' });
+  }
 };
